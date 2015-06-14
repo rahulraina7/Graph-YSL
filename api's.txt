@@ -1,0 +1,3 @@
+https://www.meaningcloud.com/demos/media-analysis/
+--> good to extract concept in the query (like : Bank, Credit-cArd)
+--> good to extract money expressions too (lile : 1000 Dollars)

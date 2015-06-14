@@ -1,0 +1,118 @@
+doctype html
+html(lang='en', ng-app='loginApp')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='shortcut icon', href='assets/img/favicon.png')
+    title
+      | GRAPH - Your Financial Data @ your hands
+      script(src='/javascripts/ripples.min.js')
+    // Bootstrap core CSS
+    link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+    // Custom styles for this template
+    link(href='/stylesheets/main.css', rel='stylesheet')
+    // Fonts from Google Fonts
+    link(href='http://fonts.googleapis.com/css?family=Lato:300,400,900', rel='stylesheet', type='text/css')
+    // HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    //
+      if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+  body
+    // Fixed navbar
+    .navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            b GRAPH
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='http://www.yodlee.com') Powered by Yodlee
+        // /.nav-collapse
+    #headerwrap
+      .container
+        .row
+          .col-lg-6
+            #loginApp
+              h1 Get all your financial data, as easy as you were asking for it...!!
+              br
+              form.form-inline(role='form')
+                .form-group
+                a.btn.btn-warning.btn-lg(href='index', role='button', ng-click='doLogin()') Go to the App
+          // /col-lg-6
+          .col-lg-6
+            img.img-responsive(src='/images/ipad-hand.png', alt='')
+          // /col-lg-6
+        // /row
+      // /container
+    // /headerwrap
+    .container
+      hr
+      .row.centered
+        .col-lg-6.col-lg-offset-3
+          p
+          h4 Graph is built by powerful Yodlee® API's.
+          p
+        .col-lg-3
+      // /row
+      hr
+    // /container
+    .container
+      .row.mt.centered
+        .col-lg-6.col-lg-offset-3
+          h1
+            b Graph
+            |  is for Everyone.
+          h3
+            | It is a long established fact that a user will be distracted by the number of decisions he has to make in order to see his results
+      // /row
+      .row.mt.centered
+        .col-lg-6.col-lg-offset-3
+          #carousel-example-generic.carousel.slide(data-ride='carousel')
+            // Indicators
+            ol.carousel-indicators
+              li.active(data-target='#carousel-example-generic', data-slide-to='0')
+              li(data-target='#carousel-example-generic', data-slide-to='1')
+              li(data-target='#carousel-example-generic', data-slide-to='2')
+            // Wrapper for slides
+            .carousel-inner
+              .item.active
+                img(src='/images/p01.png', alt='')
+              .item
+                img(src='/images/p02.png', alt='')
+              .item
+                img(src='/images/p03.png', alt='')
+        // /col-lg-8
+      // /row
+    .container
+      hr
+      .row.centered
+        .col-lg-6.col-lg-offset-3
+          form.form-inline(role='form')
+            .form-group
+              input#exampleInputEmail1.form-control(type='email', placeholder='Enter your email address')
+            button.btn.btn-warning.btn-lg(type='submit') Get Access !
+        .col-lg-3
+      // /row
+      hr
+    // /container
+    //
+      Bootstrap core JavaScript
+      ==================================================
+    // Placed at the end of the document so the pages load faster
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/angular.min.js')
+    script(src='/javascripts/angular-animate.min.js')
+    script(src='/javascripts/loading-bar.min.js')
+    script(src='/javascripts/angular-route.min.js')
+    script(src='/javascripts/app.js')
+    link(rel='stylesheet', href='/stylesheets/loading-bar.min.css')

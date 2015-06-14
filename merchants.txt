@@ -1,0 +1,6 @@
+for atm withdrawls:
+      "merchantName": "Cash Withdrawal",
+
+for transfers :
+
+      "merchantName": "Transfer",

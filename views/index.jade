@@ -1,0 +1,64 @@
+doctype html
+html(lang='en-us', ng-app='angularApp')
+  head
+    title Graph for Yodlee
+    meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+    meta(charset='UTF-8')
+    // load bootstrap and fontawesome via CDN
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/material.min.js')
+    script(src='/javascripts/script.js')
+    script(src='/javascripts/angular.min.js')
+    script(src='/javascripts/angular-animate.min.js')
+    script(src='/javascripts/loading-bar.min.js')
+    script(src='/javascripts/angular-route.min.js')
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/ripples.min.js')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/loading-bar.min.css')
+    link(rel='stylesheet', href='/stylesheets/material-custom.css')
+    link(href='/stylesheets/ripples.min.css', rel='stylesheet')
+    link(href='/stylesheets/roboto.min.css', rel='stylesheet')
+    link(href='/stylesheets/search.css', rel='stylesheet')
+    style.
+      html,
+      body {
+      font-size: 1.1em;
+      }
+    // load angular via CDN
+    body
+    header
+      .navbar.navbar-default
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') Landing
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          ul.nav.navbar-nav
+            li.active
+              a(href='#/') Home
+            li
+              a(href='http://localhost:7474') The Graph
+            li
+              a(href='#/app') Get Started
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='javascript:void(0)') Your Profile 
+            li.dropdown
+              a.dropdown-toggle(href='', data-target='#', data-toggle='dropdown')
+                | Settings
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href='javascript:void(0)') Profile
+                li
+                  a(href='javascript:void(0)') Another action
+                li
+                  a(href='javascript:void(0)') Something else here
+                li.divider
+                li
+                  a(href='javascript:void(0)') Logout
+    div(ng-view='')

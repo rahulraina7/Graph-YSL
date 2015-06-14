@@ -1,0 +1,135 @@
+LOAD CSV WITH HEADERS FROM "file:///C:/Users/rraina/Desktop/acc.csv" AS csvLine
+MERGE (providerName:ProviderName { name: csvLine.providerName })
+CREATE (acc:Acc { id: csvLine.id, accountName: csvLine.accountName, container:csvLine.CONTAINER})
+CREATE (acc)-[:ACCOUNTS_IN]->(providerName)
+-----------------------------------------------------------------------------------
+
+//accounts
+
+LOAD CSV WITH HEADERS FROM "file:///C:/Users/rraina/Desktop/acc.csv" AS csvLine
+MERGE (providerName:ProviderName { name: csvLine.providerName })
+MERGE (container:Container { name: csvLine.CONTAINER })
+MERGE (asset:Asset { name: csvLine.isAsset })
+CREATE (account:Account { accountName: csvLine.accountName, id: csvLine.id , balance:csvLine.balance, accountNumber:csvLine.accountNumber})
+CREATE (account)-[:ACCOUNTS_IN]->(providerName)
+CREATE (account)-[:ACCOUNT_TYPE]->(container)
+CREATE (account)-[:IS_ASSET]->(asset)
+
+--------------------------------------------------------------------------
+
+CREATE CONSTRAINT ON (account:Account) ASSERT account.id IS UNIQUE
+CREATE INDEX ON :Transaction()
+ 
+
+--------------------------------------------------------------------------
+//transactions
+
+CREATE CONSTRAINT ON (transaction:Transaction) ASSERT transaction.id IS UNIQUE
+
+USING PERIODIC COMMIT 500
+LOAD CSV WITH HEADERS FROM "file:///C:/Users/rraina/Desktop/trans.csv" AS row
+MERGE (baseType:BaseType { name: row.baseType })
+MERGE (category:Category { name: row.category })
+MERGE (merchantName:MerchantName { name: row.merchantName })
+WITH baseType, category, merchantName,row
+CREATE (transaction:Transaction { description: row.description, postedDate: row.date,transactionDate: row.transactionDate ,id: row.id ,accountId : row.accountId}) 
+CREATE (transaction)-[:CATEGORY_IN]->(category)
+CREATE (transaction)-[:TRANSACTED_AT]->(merchantName)
+CREATE (transaction)-[:BASETYPE_OF]->(baseType)
+
+
+LOAD CSV WITH HEADERS FROM "file:///C:/Users/rraina/Desktop/acc.csv" AS row
+MATCH (n:Transaction)
+SET 
+return n;
+
+
+
+MATCH (account:Account), (transaction:Transaction)
+WHERE account.id = transaction.accountId
+CREATE (transaction)-[:TRANSACTION_OF_ACCOUNT]->(account)
+
+
+
+---------------------------------------------------------------
+--------------Queries to pull data from front end--------------
+---------------------------------------------------------------
+
+//to pull accounts of type <container_type> 
+@Params = <container_type>
+
+MATCH (account:Account)-[r:ACCOUNT_TYPE]->(container:Container)
+WHERE container.name =~ '(?i).*<container_type>.*'
+RETURN account
+
+
+
+//to pull transactions at a particular merchant.  
+@Params  : <merchant_name>
+
+MATCH (transaction:Transaction)-[r:TRANSACTED_AT]->(merchantName:MerchantName)
+where merchantName.name =~ '(?i).*<mercant_name>.*'
+RETURN transaction
+
+
+//to pull assets 
+@Params: null
+
+MATCH (account:Account)-[r:IS_ASSET]->(asset:Asset)
+where asset.name='TRUE'
+RETURN r
+
+//to pull liabilities 
+@Params: null
+
+MATCH (account:Account)-[r:IS_ASSET]->(asset:Asset)
+where asset.name='FALSE'
+RETURN r
+
+
+//to pull sum of assets
+@Params : null
+
+MATCH (account:Account)-[r:IS_ASSET]->(asset:Asset)
+WHERE asset.name='TRUE'
+RETURN sum(toFloat(account.balance))
+
+
+
+//to pull all the sum of liabilities
+@Params : null
+
+MATCH (account:Account)-[r:IS_ASSET]->(asset:Asset)
+WHERE asset.name='FALSE'
+RETURN sum(toFloat(account.balance))
+
+
+//to pull what all banks do I have accounts in
+@Params : null
+
+MATCH (account:Account)-[r:ACCOUNTS_IN]->(provider:ProviderName)
+RETURN provider
+
+
+
+//to pull spending categories
+@Params : <category_name>
+
+MATCH (transaction:Transaction)-[r:CATEGORY_IN]->(category:Category)
+where category.name =~ '(?i).*<category_name>.*'
+RETURN r
+
+
+
+//to pull transactions of a particular BaseType
+@Params : <basetype_name>
+
+MATCH (transaction:Transaction)-[r:BASETYPE_OF]->(baseType:BaseType)
+WHERE baseType.name=~ '(?i).*<basetype_name>.*'
+RETURN r
+
+
+
+
+
+
