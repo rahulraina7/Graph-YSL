@@ -1,10 +1,10 @@
 module.exports = {
   cortical: {
-    API_KEY: '3080a0e0-0a91-11e5-a409-7159d0ac8188',
+    API_KEY: '',
     URL: 'http://api.cortical.io:80/rest/text/keywords?retina_name=en_associative'
   },
   textRazor : {
-  	API_KEY : 'e369b16f7c53f378688cec07ce0a423f6e8f6e685dd76b2859dcca66',
+  	API_KEY : '',
   	URL : 'https://api.textrazor.com',
   	EXTRACTORS :{
   		ENTITIES : 'entities',
